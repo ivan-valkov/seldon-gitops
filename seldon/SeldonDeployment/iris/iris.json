@@ -29,9 +29,7 @@
                 },
                 "componentSpecs": [
                     {
-                        "metadata": {
-                            "creationTimestamp": "2021-02-08T11:45:44Z"
-                        },
+                        "metadata": {},
                         "spec": {
                             "containers": [
                                 {
