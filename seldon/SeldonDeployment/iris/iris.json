@@ -6,101 +6,8 @@
         "namespace": "seldon",
         "creationTimestamp": null,
         "labels": {
-            "app.kubernetes.io/instance": "seldon-gitops-seldon",
             "fluentd": "true"
-        },
-        "managedFields": [
-            {
-                "manager": "argocd-application-controller",
-                "operation": "Update",
-                "apiVersion": "machinelearning.seldon.io/v1alpha2",
-                "time": "2021-02-15T13:25:00Z",
-                "fieldsType": "FieldsV1",
-                "fieldsV1": {
-                    "f:metadata": {
-                        "f:annotations": {
-                            ".": {},
-                            "f:kubectl.kubernetes.io/last-applied-configuration": {}
-                        },
-                        "f:labels": {
-                            ".": {},
-                            "f:app.kubernetes.io/instance": {},
-                            "f:fluentd": {}
-                        }
-                    },
-                    "f:spec": {
-                        ".": {},
-                        "f:annotations": {
-                            ".": {},
-                            "f:seldon.io/engine-seldon-log-messages-externally": {}
-                        },
-                        "f:name": {},
-                        "f:protocol": {}
-                    }
-                }
-            },
-            {
-                "manager": "manager",
-                "operation": "Update",
-                "apiVersion": "machinelearning.seldon.io/v1",
-                "time": "2021-02-15T13:25:29Z",
-                "fieldsType": "FieldsV1",
-                "fieldsV1": {
-                    "f:spec": {
-                        "f:predictors": {}
-                    },
-                    "f:status": {
-                        ".": {},
-                        "f:address": {
-                            ".": {},
-                            "f:url": {}
-                        },
-                        "f:deploymentStatus": {
-                            ".": {},
-                            "f:iris-canary-0-iris-container": {
-                                ".": {},
-                                "f:availableReplicas": {},
-                                "f:replicas": {}
-                            },
-                            "f:iris-default-0-iris-container": {
-                                ".": {},
-                                "f:availableReplicas": {},
-                                "f:replicas": {}
-                            }
-                        },
-                        "f:replicas": {},
-                        "f:serviceStatus": {
-                            ".": {},
-                            "f:iris-canary": {
-                                ".": {},
-                                "f:grpcEndpoint": {},
-                                "f:httpEndpoint": {},
-                                "f:svcName": {}
-                            },
-                            "f:iris-canary-iris-container": {
-                                ".": {},
-                                "f:grpcEndpoint": {},
-                                "f:httpEndpoint": {},
-                                "f:svcName": {}
-                            },
-                            "f:iris-default": {
-                                ".": {},
-                                "f:grpcEndpoint": {},
-                                "f:httpEndpoint": {},
-                                "f:svcName": {}
-                            },
-                            "f:iris-default-iris-container": {
-                                ".": {},
-                                "f:grpcEndpoint": {},
-                                "f:httpEndpoint": {},
-                                "f:svcName": {}
-                            }
-                        },
-                        "f:state": {}
-                    }
-                }
-            }
-        ]
+        }
     },
     "spec": {
         "name": "iris",
@@ -136,7 +43,40 @@
                     "version": "default"
                 },
                 "svcOrchSpec": {},
-                "traffic": 100
+                "traffic": 90
+            },
+            {
+                "name": "canary",
+                "graph": {
+                    "name": "iris-container",
+                    "implementation": "SKLEARN_SERVER",
+                    "modelUri": "gs://seldon-models/sklearn/iris",
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2021-02-15T13:25:50Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "iris-container",
+                                    "resources": {}
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "annotations": {
+                    "seldon.io/canary": "true"
+                },
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 10
             }
         ],
         "annotations": {
