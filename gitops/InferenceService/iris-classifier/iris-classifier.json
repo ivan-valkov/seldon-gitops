@@ -4,10 +4,7 @@
     "metadata": {
         "name": "iris-classifier",
         "namespace": "gitops",
-        "creationTimestamp": null,
-        "labels": {
-            "fluentd": "true"
-        }
+        "creationTimestamp": null
     },
     "spec": {
         "default": {
@@ -30,30 +27,7 @@
                     "mode": "all"
                 }
             }
-        },
-        "canary": {
-            "predictor": {
-                "xgboost": {
-                    "storageUri": "gs://kfserving-samples/models/xgboost/iris",
-                    "resources": {
-                        "limits": {
-                            "cpu": "1",
-                            "memory": "1Gi",
-                            "nvidia.com/gpu": "0"
-                        },
-                        "requests": {
-                            "cpu": "100m",
-                            "memory": "1Gi",
-                            "nvidia.com/gpu": "0"
-                        }
-                    }
-                },
-                "logger": {
-                    "mode": "all"
-                }
-            }
-        },
-        "canaryTrafficPercent": 10
+        }
     },
     "status": {}
 }
