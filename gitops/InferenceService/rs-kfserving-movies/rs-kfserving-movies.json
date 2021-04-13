@@ -1,0 +1,37 @@
+{
+    "kind": "InferenceService",
+    "apiVersion": "serving.kubeflow.org/v1alpha2",
+    "metadata": {
+        "name": "rs-kfserving-movies",
+        "namespace": "gitops",
+        "creationTimestamp": null,
+        "labels": {
+            "fluentd": "true"
+        }
+    },
+    "spec": {
+        "default": {
+            "predictor": {
+                "sklearn": {
+                    "storageUri": "gs://seldon-models/sklearn/moviesentiment",
+                    "resources": {
+                        "limits": {
+                            "cpu": "1",
+                            "memory": "1Gi",
+                            "nvidia.com/gpu": "0"
+                        },
+                        "requests": {
+                            "cpu": "100m",
+                            "memory": "200Mi",
+                            "nvidia.com/gpu": "0"
+                        }
+                    }
+                },
+                "logger": {
+                    "mode": "all"
+                }
+            }
+        }
+    },
+    "status": {}
+}
