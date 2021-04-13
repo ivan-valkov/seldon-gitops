@@ -6,6 +6,7 @@
         "namespace": "gitops",
         "creationTimestamp": null,
         "labels": {
+            "app.kubernetes.io/instance": "seldon-gitops-gitops",
             "fluentd": "true"
         }
     },
@@ -14,36 +15,6 @@
         "predictors": [
             {
                 "name": "default",
-                "graph": {
-                    "name": "iris",
-                    "implementation": "SKLEARN_SERVER",
-                    "modelUri": "gs://seldon-models/sklearn/iris",
-                    "logger": {
-                        "mode": "all"
-                    }
-                },
-                "componentSpecs": [
-                    {
-                        "metadata": {
-                            "creationTimestamp": "2021-04-13T10:40:55Z"
-                        },
-                        "spec": {
-                            "containers": [
-                                {
-                                    "name": "iris",
-                                    "resources": {}
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "replicas": 1,
-                "engineResources": {},
-                "svcOrchSpec": {},
-                "traffic": 90
-            },
-            {
-                "name": "canary",
                 "graph": {
                     "name": "iris",
                     "implementation": "XGBOOST_SERVER",
@@ -68,12 +39,12 @@
                     }
                 ],
                 "replicas": 1,
-                "annotations": {
-                    "seldon.io/canary": "true"
-                },
                 "engineResources": {},
+                "labels": {
+                    "version": "default"
+                },
                 "svcOrchSpec": {},
-                "traffic": 10
+                "traffic": 100
             }
         ],
         "annotations": {
