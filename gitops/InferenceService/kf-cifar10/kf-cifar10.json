@@ -1,0 +1,28 @@
+{
+    "kind": "InferenceService",
+    "apiVersion": "serving.kubeflow.org/v1alpha2",
+    "metadata": {
+        "name": "kf-cifar10",
+        "namespace": "gitops",
+        "creationTimestamp": null,
+        "labels": {
+            "fluentd": "true"
+        }
+    },
+    "spec": {
+        "default": {
+            "predictor": {
+                "tensorflow": {
+                    "storageUri": "gs://seldon-models/tfserving/cifar10/resnet32",
+                    "resources": {}
+                },
+                "minReplicas": 1,
+                "maxReplicas": 1,
+                "logger": {
+                    "mode": "all"
+                }
+            }
+        }
+    },
+    "status": {}
+}
