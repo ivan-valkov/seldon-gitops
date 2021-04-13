@@ -6,6 +6,7 @@
         "namespace": "gitops",
         "creationTimestamp": null,
         "labels": {
+            "app.kubernetes.io/instance": "seldon-gitops-gitops",
             "fluentd": "true"
         }
     },
@@ -14,6 +15,7 @@
             "predictor": {
                 "sklearn": {
                     "storageUri": "gs://seldon-models/sklearn/moviesentiment",
+                    "runtimeVersion": "v0.4.1",
                     "resources": {
                         "limits": {
                             "cpu": "1",
@@ -29,6 +31,12 @@
                 },
                 "logger": {
                     "mode": "all"
+                }
+            },
+            "explainer": {
+                "alibi": {
+                    "type": "AnchorText",
+                    "resources": {}
                 }
             }
         }
