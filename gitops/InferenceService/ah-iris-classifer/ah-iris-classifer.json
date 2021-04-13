@@ -1,0 +1,37 @@
+{
+    "kind": "InferenceService",
+    "apiVersion": "serving.kubeflow.org/v1alpha2",
+    "metadata": {
+        "name": "ah-iris-classifer",
+        "namespace": "gitops",
+        "creationTimestamp": null,
+        "labels": {
+            "fluentd": "true"
+        }
+    },
+    "spec": {
+        "default": {
+            "predictor": {
+                "sklearn": {
+                    "storageUri": "gs://kfserving-samples/models/sklearn/iris",
+                    "resources": {
+                        "limits": {
+                            "cpu": "1",
+                            "memory": "1Gi",
+                            "nvidia.com/gpu": "0"
+                        },
+                        "requests": {
+                            "cpu": "100m",
+                            "memory": "1Gi",
+                            "nvidia.com/gpu": "0"
+                        }
+                    }
+                },
+                "logger": {
+                    "mode": "all"
+                }
+            }
+        }
+    },
+    "status": {}
+}
