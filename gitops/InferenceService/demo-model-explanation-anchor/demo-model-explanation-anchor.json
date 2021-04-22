@@ -6,6 +6,7 @@
         "namespace": "gitops",
         "creationTimestamp": null,
         "labels": {
+            "app.kubernetes.io/instance": "seldon-gitops-gitops",
             "fluentd": "true"
         }
     },
@@ -14,10 +15,27 @@
             "predictor": {
                 "sklearn": {
                     "storageUri": "gs://seldon-models/sklearn/income/model",
-                    "resources": {}
+                    "runtimeVersion": "v0.4.1",
+                    "resources": {
+                        "limits": {
+                            "cpu": "1",
+                            "memory": "2Gi"
+                        },
+                        "requests": {
+                            "cpu": "1",
+                            "memory": "2Gi"
+                        }
+                    }
                 },
                 "logger": {
                     "mode": "all"
+                }
+            },
+            "explainer": {
+                "alibi": {
+                    "type": "AnchorTabular",
+                    "storageUri": "gs://seldon-models/sklearn/income/explainer-py36-0.5.2",
+                    "resources": {}
                 }
             }
         }
