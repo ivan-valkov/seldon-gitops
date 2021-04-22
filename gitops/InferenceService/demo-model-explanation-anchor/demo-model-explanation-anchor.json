@@ -1,0 +1,26 @@
+{
+    "kind": "InferenceService",
+    "apiVersion": "serving.kubeflow.org/v1alpha2",
+    "metadata": {
+        "name": "demo-model-explanation-anchor",
+        "namespace": "gitops",
+        "creationTimestamp": null,
+        "labels": {
+            "fluentd": "true"
+        }
+    },
+    "spec": {
+        "default": {
+            "predictor": {
+                "sklearn": {
+                    "storageUri": "gs://seldon-models/sklearn/income/model",
+                    "resources": {}
+                },
+                "logger": {
+                    "mode": "all"
+                }
+            }
+        }
+    },
+    "status": {}
+}
